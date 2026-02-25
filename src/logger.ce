@@ -1,0 +1,34 @@
+/*
+    Single-file logger by MrBisquit (William Dawson)
+        https://github.com/MrBisquit/
+        https://wtdawson.info/
+
+    Repository URL:
+        https://github.com/MrBisquit/CHance_Logger/
+*/
+
+module Logger;
+
+// Bring printf
+extend from "C" int printf(char* format, ...);
+
+// Helper macros
+#define X_ENUM(X) X,
+#define X_STR(X)  #X,
+
+#define LEVELS(X) \
+    X(INFO)       \
+    X(WARN)       \
+    X(ERROR)      \
+    X(FATAL)
+
+enum LEVELS_ENUM {
+    LEVELS(X_ENUM)
+};
+
+constant char* LEVELS_STRS[] {
+    LEVELS(X_STR)
+};
+
+[Export]
+expose noreturn fun log()
